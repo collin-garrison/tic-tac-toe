@@ -9,17 +9,26 @@
 </head>
 <body>
     <h1>Tic Tac Toe</h1>
+
     <div id="gameboard">
-        <button class="cell" index="a1"></button>
-        <button class="cell" index="b1"></button>
-        <button class="cell" index="c1"></button>
-        <button class="cell" index="a2"></button>
-        <button class="cell" index="b2"></button>
-        <button class="cell" index="c2"></button>
-        <button class="cell" index="a3"></button>
-        <button class="cell" index="b3"></button>
-        <button class="cell" index="c3"></button>
+        <button class="cell" index="0"></button>
+        <button class="cell" index="1"></button>
+        <button class="cell" index="2"></button>
+        <button class="cell" index="3"></button>
+        <button class="cell" index="4"></button>
+        <button class="cell" index="5"></button>
+        <button class="cell" index="6"></button>
+        <button class="cell" index="7"></button>
+        <button class="cell" index="8"></button>
     </div>
+
+    <div id="score">
+        <span>Player 1: <span id="score1">0</span></span>
+        <span>Player2: <span id="score2">0</span></span>
+    </div>
+
+    <div id="message">Welcome! Please choose player names.</div>
+    
     <div id="controls">
         <input type="text" id="player1" placeholder="Player 1 Name" />
         <input type="text" id="player2" placeholder="Player 2 Name" />
