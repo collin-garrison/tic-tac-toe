@@ -23,17 +23,22 @@
     </div>
 
     <div id="score">
-        <span>Player 1: <span id="score1">0</span></span>
-        <span>Player2: <span id="score2">0</span></span>
+        <span><span id="player1NameDisplay">Player 1</span>: <span id="score1">0</span></span>
+        <span><span id="player2NameDisplay">Player 2</span>: <span id="score2">0</span></span>
     </div>
 
-    <div id="message">Welcome! Please choose player names.</div>
-    
+    <div id="status">Welcome! Please choose player names.</div>
+
     <div id="controls">
-        <input type="text" id="player1" placeholder="Player 1 Name" />
-        <input type="text" id="player2" placeholder="Player 2 Name" />
-        <button id="startGame">Start Game</button>
-        <button id="resetGame" type="button">Reset Game</button>
+        <div id="setupControls">
+            <input type="text" id="player1NameInput" placeholder="Player 1 Name" class="setupControl"/>
+            <input type="text" id="player2NameInput" placeholder="Player 2 Name" class="setupControl"/>
+            <button id="startGame" class="setupControl">Start Game</button>
+        </div>
+
+        <div id="gameControls">
+            <button id="resetGame" type="button" class="gameControl hidden">Reset Game</button>
+        </div>
     </div>
 </body>
 </html>

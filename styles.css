@@ -33,7 +33,7 @@ h1 {
     margin-top: 30px;
 }
 
-#message {
+#status {
     margin-top: 20px;
     font-size: 1.75em;
     text-align: center;
@@ -47,4 +47,8 @@ h1 {
     margin-top: 20px;
     font-size: 2em;
     text-align: center;
+}
+
+.hidden {
+    display: none;
 }
