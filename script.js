@@ -19,7 +19,7 @@ const Gameboard = (() => {
         board = ['', '', '', '', '', '', '', '', ''];
     }
 
-    return {setCell, resetBoard}
+    return { setCell, resetBoard }
 })();
 
 const Player = (name, marker) => {
@@ -33,10 +33,19 @@ const GameController = (() => {
     const setupControls = document.querySelectorAll('.setupControl');
     const gameControls = document.querySelectorAll('.gameControl');
 
+    const player1NameInput = document.getElementById('player1NameInput');
+    const player2NameInput = document.getElementById('player2NameInput');
+
+    const player1NameDisplay = document.getElementById('player1NameDisplay');
+    const player2NameDisplay = document.getElementById('player2NameDisplay');
+
     let player1Name = 'Player 1';
     let player2Name = 'Player 2';
 
-    let currentPlayer;
+    let player1Score = 0;
+    let player2Score = 0;
+
+    let currentPlayer = null;
 
     let gameStarted = false;
 
@@ -50,9 +59,6 @@ const GameController = (() => {
     }
 
     startButton.addEventListener('click', () => {
-        const player1NameInput = document.getElementById('player1NameInput');
-        const player2NameInput = document.getElementById('player2NameInput');
-
         if (player1NameInput.value) {
             player1Name = player1NameInput.value;
         }
@@ -63,15 +69,39 @@ const GameController = (() => {
         setupControls.forEach(control => control.classList.add('hidden'));
         gameControls.forEach(control => control.classList.remove('hidden'));
 
-        const player1NameDisplay = document.getElementById('player1NameDisplay');
-        const player2NameDisplay = document.getElementById('player2NameDisplay');
         player1NameDisplay.textContent = player1Name;
         player2NameDisplay.textContent = player2Name;
 
         const player1 = Player(player1Name, 'X');
         const player2 = Player(player2Name, 'O');
         currentPlayer = player1;
+
+        gameStarted = true;
+        
         displayTurn();
     })
 
+    resetButton.addEventListener('click', () => {
+        Gameboard.resetBoard();
+
+        player1Name = 'Player 1';
+        player2Name = 'Player 2';
+
+        player1Score = 0;
+        player2Score = 0;
+
+        player1NameInput.value = '';
+        player2NameInput.value = '';
+
+        player1NameDisplay.textContent = 'Player 1';
+        player2NameDisplay.textContent = 'Player 2';
+
+        currentPlayer = null;
+        gameStarted = false;
+
+        setupControls.forEach(control => control.classList.remove('hidden'));
+        gameControls.forEach(control => control.classList.add('hidden'));
+
+        updateStatus('Game reset. Please enter player names.');
+    });
 })();
