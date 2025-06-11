@@ -36,6 +36,19 @@ const GameController = (() => {
     let player1Name = 'Player 1';
     let player2Name = 'Player 2';
 
+    let currentPlayer;
+
+    let gameStarted = false;
+
+    const updateStatus = (message) => {
+        const statusDisplay = document.getElementById('statusDisplay');
+        statusDisplay.textContent = message;
+    }
+
+    const displayTurn = () => {
+        updateStatus(`${currentPlayer.name}'s turn`);
+    }
+
     startButton.addEventListener('click', () => {
         const player1NameInput = document.getElementById('player1NameInput');
         const player2NameInput = document.getElementById('player2NameInput');
@@ -47,17 +60,18 @@ const GameController = (() => {
             player2Name = player2NameInput.value;
         }
 
-        setupControls.forEach(control => control.style.display = 'none');
-        gameControls.forEach(control => control.style.display = 'block');
+        setupControls.forEach(control => control.classList.add('hidden'));
+        gameControls.forEach(control => control.classList.remove('hidden'));
 
         const player1NameDisplay = document.getElementById('player1NameDisplay');
         const player2NameDisplay = document.getElementById('player2NameDisplay');
         player1NameDisplay.textContent = player1Name;
         player2NameDisplay.textContent = player2Name;
 
-        const player1 = Player(player1name, 'X');
-        const player2 = Player(player2name, 'O');
-        let currentPlayer = player1;
+        const player1 = Player(player1Name, 'X');
+        const player2 = Player(player2Name, 'O');
+        currentPlayer = player1;
+        displayTurn();
     })
 
 })();
