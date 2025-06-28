@@ -1,11 +1,3 @@
-/*
-When start game is pressed, change scoreboard text to those names
-Display player 1's turn in status
-When player 1 clicks a square, change the text to X
-Display player 2's turn in status
-When player 2 clicks a square, change the text to 0
-*/
-
 const Gameboard = (() => {
     let board = ['', '', '', '', '', '', '', '', ''];
 
@@ -33,6 +25,7 @@ const Player = (name, marker) => {
 const GameController = (() => {
     const startButton = document.getElementById('startGame');
     const resetButton = document.getElementById('resetGame');
+    const nextButton = document.getElementById('nextRound')
     const cells = document.querySelectorAll('.cell');
     const setupControls = document.querySelectorAll('.setupControl');
     const gameControls = document.querySelectorAll('.gameControl');
@@ -40,6 +33,8 @@ const GameController = (() => {
     const player2NameInput = document.getElementById('player2NameInput');
     const player1NameDisplay = document.getElementById('player1NameDisplay');
     const player2NameDisplay = document.getElementById('player2NameDisplay');
+    const player1ScoreDisplay = document.getElementById('score1');
+    const player2ScoreDisplay = document.getElementById('score2');
     let player1 = null;
     let player2 = null;
     let player1Name = 'Player 1';
@@ -67,7 +62,7 @@ const GameController = (() => {
         }
 
         setupControls.forEach(control => control.classList.add('hidden'));
-        gameControls.forEach(control => control.classList.remove('hidden'));
+        resetButton.classList.remove('hidden');
 
         player1NameDisplay.textContent = player1Name;
         player2NameDisplay.textContent = player2Name;
@@ -75,6 +70,10 @@ const GameController = (() => {
         player1 = Player(player1Name, 'X');
         player2 = Player(player2Name, 'O');
         currentPlayer = player1;
+
+        cells.forEach(cell => {
+            cell.addEventListener('click', handleCellClick);
+        });
 
         gameStarted = true;
 
@@ -105,17 +104,66 @@ const GameController = (() => {
         updateStatus('Game reset. Please enter player names.');
     });
 
+    const checkWinner = () => {
+        const board = Gameboard.getBoard();
+
+        if (board[0] === board[1] && board[1] === board[2] && board[2] !== '') {
+            return true;
+        }
+        if (board[3] === board[4] && board[4] === board[5] && board[5] !== '') {
+            return true;
+        }
+        if (board[6] === board[7] && board[7] === board[8] && board[8] !== '') {
+            return true;
+        }
+
+        if (board[0] === board[3] && board[3] === board[6] && board[6] !== '') {
+            return true;
+        }
+        if (board[1] === board[4] && board[4] === board[7] && board[7] !== '') {
+            return true;
+        }
+        if (board[2] === board[5] && board[5] === board[8] && board[8] !== '') {
+            return true;
+        }
+
+        if (board[0] === board[4] && board[4] === board[8] && board[8] !== '') {
+            return true;
+        }
+        if (board[2] === board[4] && board[4] === board[6] && board[6] !== '') {
+            return true;
+        }
+    }
+
+
     const handleCellClick = (event) => {
         if (gameStarted && event.target.textContent === '') {
             const cellIndex = event.target.dataset.index;
             Gameboard.setCell(cellIndex, currentPlayer.marker);
             event.target.textContent = currentPlayer.marker;
-            currentPlayer = currentPlayer === player1 ? player2 : player1;
-            displayTurn();
+
+            if (checkWinner()) {
+                updateStatus(`${currentPlayer.name} wins!`);
+                cells.forEach(cell => {
+                    cell.removeEventListener('click', handleCellClick);
+                })
+
+                nextButton.classList.remove('hidden')
+
+                if (currentPlayer === player1) {
+                    player1Score++;
+                    player1ScoreDisplay.innerText = player1Score;
+                }
+                else {
+                    player2Score++;
+                    player2ScoreDisplay.innerText = player2Score;
+                }
+            }
+
+            else {
+                currentPlayer = currentPlayer === player1 ? player2 : player1;
+                displayTurn();
+            }
         }
     }
-
-    cells.forEach(cell => {
-        cell.addEventListener('click', handleCellClick);
-    });
 })();
