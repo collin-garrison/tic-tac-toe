@@ -87,6 +87,8 @@ const GameController = (() => {
         player2Name = 'Player 2';
         player1Score = 0;
         player2Score = 0;
+        player1ScoreDisplay.innerText = player1Score;
+        player2ScoreDisplay.innerText = player2Score;
         player1NameInput.value = '';
         player2NameInput.value = '';
         player1NameDisplay.textContent = 'Player 1';
@@ -102,7 +104,21 @@ const GameController = (() => {
         })
 
         updateStatus('Game reset. Please enter player names.');
-    });
+    })
+
+    nextButton.addEventListener('click', () => {
+        Gameboard.resetBoard();
+
+        currentPlayer = currentPlayer === player1 ? player2 : player1;
+        displayTurn();
+
+        cells.forEach(cell => {
+            cell.textContent = '';
+            cell.addEventListener('click', handleCellClick);
+        })
+
+        nextButton.classList.add('hidden');
+    })
 
     const checkWinner = () => {
         const board = Gameboard.getBoard();
