@@ -1,6 +1,6 @@
 # Tic-Tac-Toe
 
-A browser-based Tic-Tac-Toe game built with JavaScript, HTML, and CSS as part of [The Odin Project](https://www.theodinproject.com/) curriculum.
+A browser-based Tic-Tac-Toe game built to practice modular code in JavaScript as part of [The Odin Project](https://www.theodinproject.com/) curriculum.
 
 [View Here](https://collindg.github.io/Tic-Tac-Toe)
 
