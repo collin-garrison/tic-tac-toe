@@ -2,7 +2,7 @@
 
 A browser-based Tic-Tac-Toe game built to practice **modular code** in JavaScript.
 
-[View Here](https://collin-garrison.github.io/Tic-Tac-Toe)
+[View Here](https://collin-garrison.github.io/tic-tac-toe/)
 
 ## Features
 
